@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Authentication</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+	<!-- Відкриття модалки -->
+	<button class="openSignUp" type="button">Sing up</button>
+
+	<!-- Форма коли акаунт існує -->
+	<div class="authorised-btn-wrapper is-hidden">
+		<!-- кнопка при акаунту -->
+		<button>
+			<span>
+				<!-- Фото чувачка
+					 -->
+			</span>
+			'User'
+		</button>
+		<button id="signOutButton" class="sign-out-btn-js is-hidden">Sing Out</button>
+
+	</div>
+
+
+	<!-- Форма модалки -->
+	<div class="backdrop auth-modal-js is-hidden">
+		<div class="modal modal-js">
+			<form id="authForm" autocomplete="off">
+				<div class="form-add">
+					<div class="form-input">
+						<input type="text" class="form-input-name" placeholder="name" name="name">
+					</div>
+				</div>
+				<div class="form-input">
+					<input type="email" placeholder="email" name="email" id="userEmail">
+				</div>
+				<div class="form-input">
+					<input type="password" placeholder="password" name="password" id="userPassword">
+				</div>
+				<button id="signUpButton" class="form--btn-submit" type="submit">Sign up</button>
+
+				<button class="modal-close modal-close-js" type="button">X</button>
+			</form>
+
+			<!-- кнопки переключення для входу та реєстрації -->
+			<div class="sing-up-and-in">
+				<button type="button" class="form__btn-sign-up active">Sing Up</button>
+				<button type="button" class="form__btn-sign-in">Sing In</button>
+			</div>
+
+			<!-- вихід -->
+		</div>
+	</div>
+	<script type="module" src="./auth.js"></script>
+	<script type="module" src="./script.js"></script>
+</body>
+
+</html>
