@@ -25,26 +25,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const authForm = document.querySelector('#authForm');
+const authForm = document.querySelector('form#authForm');
 const signUpButton = document.querySelector('#signUpButton');
 const signOutButton = document.querySelector('#signOutButton');
-const userBtn = document.querySelector('.authorised-btn-wrapper');
-const signUpBtn = document.querySelector('.openSignUp');
+const userBtnInfo = document.querySelector('.user-info');
+const signUpBtn = document.querySelector('.btn-signup');
 const modalWindow = document.querySelector('.modal-js');
 const formBtnSubmit = document.querySelector('.form--btn-submit');
+const btnProfile = document.querySelector('.btn-profile');
 
-// Check the user's authentication state
+// Стан профілю
 const checkAuthState = async () => {
   onAuthStateChanged(auth, user => {
     if (user) {
-      userBtn.querySelector('span').nextSibling.textContent = user.displayName;
+      userBtnInfo.querySelector('span').nextSibling.textContent =
+        capitalizeFirstLetter(user.displayName);
       signUpBtn.classList.add('is-hidden');
-      userBtn.classList.remove('is-hidden');
-      signOutButton.classList.remove('is-hidden');
+      userBtnInfo.classList.remove('is-hidden');
+      signOutButton.classList.add('is-hidden');
     } else {
       signUpBtn.classList.remove('is-hidden');
-      userBtn.classList.add('is-hidden');
-      signOutButton.classList.add('is-hidden');
+      userBtnInfo.classList.add('is-hidden');
     }
   });
 };
@@ -56,18 +57,20 @@ const userSignUp = (name, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(userSignUpCreate => {
       const user = userSignUpCreate.user;
+      console.log(user);
       modalWindow.classList.add('is-hidden');
       return updateProfile(auth.currentUser, {
         displayName: name,
       });
     })
     .then(() => {
-      userBtn.querySelector('span').nextSibling.textContent =
+      userBtnInfo.querySelector('span').nextSibling.textContent =
         auth.currentUser.displayName;
     })
     .catch(error => {
       const errorCode = error.code;
-      console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorCode + errorMessage);
     });
 };
 
@@ -80,7 +83,8 @@ const userSignIn = (email, password) => {
     })
     .catch(error => {
       const errorCode = error.code;
-      console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorCode + errorMessage);
     });
 };
 
@@ -92,14 +96,15 @@ const userSignOut = () => {
     })
     .catch(error => {
       const errorCode = error.code;
-      console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorCode + errorMessage);
     });
 };
 
 // Обробка подання форми користувача
 function handleFormSubmit(e) {
   e.preventDefault();
-  const { email, password } = e.target.elements;
+  const { email, password } = e.currentTarget.elements;
   const userEmail = email.value.trim();
   const userPassword = password.value.trim();
 
@@ -114,8 +119,18 @@ function handleFormSubmit(e) {
   }
 }
 
-authForm.addEventListener('submit', handleFormSubmit);
+// Функція для відкриття і закритта профілю щоб вийти з сторінки
+const profileUser = () => {
+  signOutButton.classList.toggle('is-hidden');
+};
 
 signUpButton.addEventListener('click', userSignUp);
 signUpButton.addEventListener('click', userSignIn);
 signOutButton.addEventListener('click', userSignOut);
+authForm.addEventListener('submit', handleFormSubmit);
+btnProfile.addEventListener('click', profileUser);
+
+// Функція для приведення першої літери до toUpperCase
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

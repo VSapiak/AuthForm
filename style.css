@@ -22,3 +22,53 @@
 	visibility: hidden;
 	pointer-events: none;
 }
+
+.btn-profile {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 29px;
+
+	/* identical to box height */
+	letter-spacing: -0.02em;
+
+	color: #FFFFFF;
+	background: #4F2EE8;
+	border-radius: 36px;
+	cursor: pointer;
+	padding: 8px 0 8px 0;
+}
+
+.sign-out-btn {
+	background: #FFFFFF;
+	border: 1.5px solid #111111;
+	border-radius: 18px;
+	padding: 14px 0;
+	/* font-family: 'DM Sans'; */
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 18px;
+	cursor: pointer;
+	/* identical to box height, or 129% */
+	letter-spacing: -0.04em;
+
+	color: #111111;
+}
+
+.sign-out-btn>span {
+	padding-left: 90px;
+}
+
+.user-content {
+	display: flex;
+	flex-direction: column;
+	width: 184px;
+}
+
+.backdrop {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+}
